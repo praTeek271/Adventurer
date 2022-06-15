@@ -8,7 +8,7 @@ from support import *
 
 class Enemy(Entity):
 
-    def __init__(self, monster_name,pos,groups,obstacle_sprites,damage_player):
+    def __init__(self, monster_name,pos,groups,obstacle_sprites,damage_player,trigger_def_particles):
 
 
         #general setup
@@ -69,7 +69,7 @@ class Enemy(Entity):
         self.attack_cooldown=400
 
         self.damage_player=damage_player
-
+        self.trigger_death_particles=trigger_def_particles
 
 		# incibility timer
 
@@ -80,6 +80,11 @@ class Enemy(Entity):
         self.invicibility_dur=400
 
 
+        self.monster_DEATH_sound=pygame.mixer.Sound(os.path.join(Base_Dir,'audio/death.wav'))
+        self.monster__HIT_sound=pygame.mixer.Sound(os.path.join(Base_Dir,'audio/hit.wav'))
+        self.monster__HIT_sound.set_volume(0.2)
+        self.monster_DEATH_sound.set_volume(0.2)
+        self.attack_sound=pygame.mixer.Sound(monster_info['attack_sound'])
     def import_graphics(self,name):
 
 
@@ -142,7 +147,7 @@ class Enemy(Entity):
         if self.status=='attack':
             self.attack_time=pygame.time.get_ticks()
             self.damage_player(self.attack_damage,self.attack_type)
-
+            self.attack_sound.play()
         elif self.status=='move':
 
             self.direction=self.get_player_distance_and_direction(player)[1]
@@ -206,13 +211,14 @@ class Enemy(Entity):
     def check_death(self):
 
         if self.health<=0:
-
             self.kill()
+            self.monster_DEATH_sound.play()
+            self.trigger_death_particles(self.rect.center,self.monster_name )
 
     def hit_reaction(self):
 
         if not self.vulnerable:
-
+            self.monster__HIT_sound.play()
             self.direction*=-self.resistance
 
     def cooldown(self):

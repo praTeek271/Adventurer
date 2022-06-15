@@ -13,9 +13,10 @@ class Tile(pygame.sprite.Sprite):
         # self.image=pygame.image.load(os.path.join(resourses_path,'rock.png')).convert_alpha()
         self.image=surface
         self.sprite_type=sprite_type
+        y_offset=HITBOX_OFFSET[sprite_type]
         if sprite_type=='object':
             self.rect=self.image.get_rect(topleft=(pos[0]-3,pos[1]-(TILESIZE+2)))
         else:
             self.rect=self.image.get_rect(topleft=pos)
-        self.hitbox=self.rect.inflate(-10,-30)
+        self.hitbox=self.rect.inflate(0,y_offset)
 

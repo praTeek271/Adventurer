@@ -10,7 +10,7 @@ class Player(Entity):
 		
 		self.image=pygame.image.load(os.path.join(Base_Dir,'graphics/test/player.png')).convert_alpha()
 		self.rect = self.image.get_rect(topleft = pos)
-		self.hitbox=self.rect.inflate(0,-27)
+		self.hitbox=self.rect.inflate(-6,HITBOX_OFFSET['player'])
 
 		# adding graphics in the player
 		self.import_player_assets()
@@ -63,6 +63,11 @@ class Player(Entity):
 		self.hurt_time=None
 		self.invicibility_dur=500
 		
+		# import sound
+		self.weapon_attack_sound=pygame.mixer.Sound(os.path.join(Base_Dir,'audio/sword.wav'))
+		self.weapon_attack_sound.set_volume(0.35)
+		
+
 	def animation(self):
 		animation=self.animations[self.status]
 		self.frame_idex+=self.animation_speed
@@ -73,6 +78,14 @@ class Player(Entity):
 			#set the image
 		self.image=animation[int(self.frame_idex)]
 		self.rect=self.image.get_rect(center=self.hitbox.center)
+
+        # flicker
+		if not self.vulnerable:
+			alpha=self.wave_value()
+			self.image.set_alpha(alpha)
+		else:
+			self.image.set_alpha(255)
+
 
 	def input(self): 
 		if not self.attacking:
@@ -102,6 +115,7 @@ class Player(Entity):
 				self.attacking=True
 				self.attack_time=pygame.time.get_ticks()
 				self.create_attack()
+				self.weapon_attack_sound.play()
 				self.count_attack+=1
 				if self.count_attack in attack_cc:
 					self.exp+=2
@@ -120,15 +134,7 @@ class Player(Entity):
 				cost=(list(magic_data.values()))[self.magic_index]['cost']
 				self.create_magic(style,strength,cost)
 		# ----------------------------------------made changes
-				self.count_attack+=1
-				if (style=='heal' and (self.health<=self.stats['health'])):
-					self.health+=4
-				if self.count_attack in attack_cc:
-					self.exp+=2
-					if (self.health<=self.stats['health']):
-						self.health+=2
-					if (self.energy>0):
-						self.energy-=22
+			
 
 				
 				# switching feature of magic
@@ -192,9 +198,6 @@ class Player(Entity):
 	def get_satus(self):
 		if(self.direction.x==0 and self.direction.y==0):
 			if not 'idle' in self.status and not 'attack' in self.status:
-				if self.energy<HEALTH_BAR_WIDTH+5:
-					self.energy+=5
-
 				self.status=self.status+'_idle'
 		if self.attacking:
 			self.direction.x=0
@@ -208,6 +211,11 @@ class Player(Entity):
 		else:
 			if ('attack' in self.status):
 				self.status=self.status.replace( '_attack','_idle')
+	
+	# energy recovery
+	def energy_recovery(self):
+		if (self.energy<=self.stats['energy']):
+			self.energy+=0.02*self.stats['magic']
 
 	# get weapon/magic damage 
 	def get_full_weapon_damage(self):
@@ -240,4 +248,5 @@ class Player(Entity):
 		self.cooldown()
 		self.get_satus()
 		self.animation() 
+		self.energy_recovery()
 		self.move(self.speed)

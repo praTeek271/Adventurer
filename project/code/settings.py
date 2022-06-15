@@ -7,6 +7,12 @@ HEIGTH   = 656
 FPS      = 60
 TILESIZE = 64
 Base_Dir=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+HITBOX_OFFSET = {
+	'player': -26,
+	'objects': -40,
+	'grass': -10,
+	'invisible': 0}
+
 
 attack_cc=[735, 659, 349, 243, 402, 304, 243, 9, 276, 364, 718, 188, 373, 43, 546, 711, 729, 549, 333, 168, 378, 43, 677, 738, 507, 374, 963, 64, 705, 478, 825, 609, 530, 77, 873, 281, 956, 995, 58, 200, 115, 323, 442, 148, 174, 342, 812, 560, 226, 689, 377, 98, 846, 720, 344, 994, 389, 500, 630, 590, 922, 412, 434, 726, 424, 795, 537, 891, 372, 827, 513, 946, 177, 426, 615, 878, 729, 898, 511, 139, 699, 686, 133, 768, 736, 853, 170, 575, 58, 268, 537, 143, 382, 359, 236, 246, 402, 269, 339, 307]
 # GENERAL COLOR PARAMETRS
@@ -23,7 +29,7 @@ debug_bg='#6061644d'
 debug_Font='#e57615'
 # ui data
 BAR_HEIGHT=20
-HEALTH_BAR_WIDTH=140
+HEALTH_BAR_WIDTH=240
 ENERGY_BAR_WIDTH=100
 ITEM_BOX_SIZE=80
 UI_FONT=os.path.join(Base_Dir,'graphics/font/joystix.ttf')
@@ -47,8 +53,8 @@ magic_data={
 
 # enemy
 monster_data = {
-	'squid': {'health': 100,'exp':100,'damage':20,'attack_type': 'slash', 'attack_sound':os.path.join(Base_Dir,'graphics/audio/attack/slash.wav'), 'speed': 3, 'resistance': 3, 'attack_radius': 80, 'notice_radius': 360},
-	'raccoon': {'health': 300,'exp':250,'damage':40,'attack_type': 'claw',  'attack_sound':os.path.join(Base_Dir,'graphics/audio/attack/claw.wav'),'speed': 2, 'resistance': 1, 'attack_radius': 120, 'notice_radius': 400},
-	'spirit': {'health': 100,'exp':110,'damage':8,'attack_type': 'thunder', 'attack_sound':os.path.join(Base_Dir,'graphics/audio/attack/fireball.wav'), 'speed': 4, 'resistance': 3, 'attack_radius': 60, 'notice_radius': 350},
-	'bamboo': {'health': 70,'exp':120,'damage':6,'attack_type': 'leaf_attack', 'attack_sound':os.path.join(Base_Dir,'graphics/audio/attack/slash.wav'), 'speed': 3, 'resistance': 3, 'attack_radius': 50, 'notice_radius': 300}
+	'squid': {'health': 100,'exp':100,'damage':20,'attack_type': 'slash', 'attack_sound':os.path.join(Base_Dir,'audio/attack/slash.wav'), 'speed': 3, 'resistance': 3, 'attack_radius': 80, 'notice_radius': 360},
+	'raccoon': {'health': 300,'exp':250,'damage':40,'attack_type': 'claw',  'attack_sound':os.path.join(Base_Dir,'audio/attack/claw.wav'),'speed': 2, 'resistance': 1, 'attack_radius': 120, 'notice_radius': 400},
+	'spirit': {'health': 100,'exp':110,'damage':8,'attack_type': 'thunder', 'attack_sound':os.path.join(Base_Dir,'audio/attack/fireball.wav'), 'speed': 4, 'resistance': 3, 'attack_radius': 60, 'notice_radius': 350},
+	'bamboo': {'health': 70,'exp':120,'damage':6,'attack_type': 'leaf_attack', 'attack_sound':os.path.join(Base_Dir,'audio/attack/slash.wav'), 'speed': 3, 'resistance': 3, 'attack_radius': 50, 'notice_radius': 300}
 }
