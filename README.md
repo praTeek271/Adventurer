@@ -6,7 +6,7 @@ The main program runs with the `main.py` file acessing the details and commandin
 
 <hr>
 
-## Images from the Game
+## Images from the Game Screen
 
 - <img src="https://github.com/praTeek271/Adventurer/blob/master/project/graphics/test/Screenshot%202022-10-15%20181226.png">
 
