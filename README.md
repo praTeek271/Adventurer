@@ -1,6 +1,6 @@
 # Adventurer
 
-This is a 2-D version type game, in this game their are in total of 4 enemies .Here are some photos of them:
+This is a 2-D version type game, in this game their are in total of 4 enemies. Pave your way through the forest of "Erut" and make it monsters free and also help the monsters who are affected by an evil curse to hurt humans.Here are some photos of them:<br>
 <div style="align-item:center;display:flex">
   <div><img src="https://github.com/praTeek271/Adventurer/blob/master/project/graphics/test/banner2.png"></div>
   <p>
