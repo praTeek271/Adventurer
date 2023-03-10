@@ -34,7 +34,6 @@ ENERGY_BAR_WIDTH=100
 ITEM_BOX_SIZE=80
 UI_FONT=os.path.join(Base_Dir,'graphics/font/joystix.ttf')
 UI_FONT_SIZE=18
-
 # weapon_data
 weapon_data={
     'sword':{'cooldown':100,'damage':15,'graphics':os.path.join(Base_Dir,'graphics/weapons/sword/full.png')},
@@ -58,3 +57,12 @@ monster_data = {
 	'spirit': {'health': 100,'exp':110,'damage':8,'attack_type': 'thunder', 'attack_sound':os.path.join(Base_Dir,'audio/attack/fireball.wav'), 'speed': 4, 'resistance': 3, 'attack_radius': 60, 'notice_radius': 350},
 	'bamboo': {'health': 70,'exp':120,'damage':6,'attack_type': 'leaf_attack', 'attack_sound':os.path.join(Base_Dir,'audio/attack/slash.wav'), 'speed': 3, 'resistance': 3, 'attack_radius': 50, 'notice_radius': 300}
 }
+
+# changes
+
+mode='menu'  # default mode
+
+MAIN_MENU=os.path.join(Base_Dir,'graphics/tilemap/menu.png')
+quit_game=False
+
+#

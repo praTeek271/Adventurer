@@ -34,10 +34,18 @@ class Level:
 
 		# user stats interface
 		self.ui=UI()
-
 		# particles
 		self.animation_player=AnimationPlayer()
 		self.magic_player=MagicPlayer((self.animation_player))
+	
+	def Game_start(self):
+		# create an screen which will appear when esc is pressed
+		# create a countdown timer screen before game starts
+		
+		pass
+
+
+
 
 	def create_map(self):
 		layout={
@@ -189,7 +197,7 @@ class YSortCameraGroup(pygame.sprite.Group):
 		self.offset.x=player.rect.centerx-self.half_width
 		self.offset.y=player.rect.centery-self.half_height
 		
-		#d awing the floor
+		#drawing the floor
 		floor_offset_pos=self.floor_rect.topleft-self.offset
 		self.display_surface.blit(self.floor_surface,floor_offset_pos)
 
