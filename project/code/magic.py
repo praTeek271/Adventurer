@@ -8,17 +8,18 @@ class MagicPlayer:
         self.animation_player=animation_player
         self.magic_sounds={
             'heal':pygame.mixer.Sound(os.path.join(Base_Dir,'audio/heal.wav')),
-            'flame':pygame.mixer.Sound(os.path.join(Base_Dir,'audio/Fire.wav'))
+            'flame':pygame.mixer.Sound(os.path.join(Base_Dir,'audio/fire-sound.mp3'))
         }
 
     def heal(self,player,strength,cost,groups):
         if player.energy>=cost:
-            if player.health!=player.stats['health']:
+            if (player.health!=player.stats['health']) and (player.health<=250):
                 player.health+=strength
                 
             player.energy-=cost
             self.animation_player.create_particles('aura',player.rect.center,groups)
             self.magic_sounds['heal'].play()
+            self.magic_sounds['heal'].set_volume(0.35)
             self.animation_player.create_particles('heal',player.rect.center+pygame.math.Vector2(10,-60),groups)
 
     def flame(self,player,cost,groups):

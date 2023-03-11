@@ -12,6 +12,7 @@ from weapons import Weapon,Magic
 from magic import MagicPlayer
 from enemy import Enemy
 from random import randint
+from menu import Menu
 class Level:
 	def __init__(self):
 
@@ -38,11 +39,6 @@ class Level:
 		self.animation_player=AnimationPlayer()
 		self.magic_player=MagicPlayer((self.animation_player))
 	
-	def Game_start(self):
-		# create an screen which will appear when esc is pressed
-		# create a countdown timer screen before game starts
-		
-		pass
 
 
 
@@ -148,6 +144,9 @@ class Level:
 	def damage_player(self,ammount,attack_type):
 		if self.player.vulnerable:
 			self.player.health-=ammount
+			self.hurt_sound=pygame.mixer.Sound(os.path.join(Base_Dir,'audio/ouch-sound-effect.mp3'))
+			self.hurt_sound.play()
+			# self.=pygame.mixer.Sound(os.path.join(Base_Dir,'audio/ough.mp3'))
 			self.player.vulnerable=False
 			self.player.hurt_time=pygame.time.get_ticks()
 			# particles
@@ -160,10 +159,7 @@ class Level:
 	def player_death(self):
 		if self.player.health<=0:
 			self.player.kill()
-			try:
-				pygame.quit()
-			except:
-				pass	
+			self.game_over()
 
 	def run(self):
 		# update and draw the game
@@ -174,6 +170,11 @@ class Level:
 		self.player_attack_logic()
 		# debug(self.player.status)
 		self.ui.display(self.player)
+
+	def game_over(self):
+		self.gameover=Menu('gameOver')
+
+		
 
 
 class YSortCameraGroup(pygame.sprite.Group):

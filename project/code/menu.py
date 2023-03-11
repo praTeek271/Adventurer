@@ -1,11 +1,25 @@
 import pygame, sys
 from button import Button
 from settings import *
+# from pyvedplayer import Video
 class Menu:
-    def __init__(self):
+    def __init__(self,scrn='menu'):
         self.BG = pygame.image.load(MAIN_MENU)
-        
+        self.GO_BG = pygame.image.load(os.path.join(Base_Dir,'graphics/tilemap/GO_BG.png'))
+        self.game_over_song=pygame.mixer.Sound(os.path.join(Base_Dir,'audio/game-over.mp3'))
+        self.menu_sound=pygame.mixer.Sound(os.path.join(Base_Dir,'audio/futuristic-space-war-percussion.wav'))
         self.SCREEN = pygame.display.set_mode((1280, 720))
+
+        if mode=='menu' or self.mode=='menu':
+            self.menu_sound.play(loops=-1)
+        elif mode!='menu':
+            self.menu_sound.stop()
+        
+        if scrn=='gameOver':
+            self.game_over_song.play(loops=-1)
+            scrn='menu'
+            self.game_over_menu()
+
 
     def get_font(self,size): # Returns Press-Start-2P in the desired size
         return pygame.font.Font(UI_FONT, size)
@@ -63,6 +77,36 @@ class Menu:
 
             pygame.display.update()
 
+    def game_over_menu(self):
+        while True:
+            self.SCREEN.blit(self.GO_BG, (0, 0))
+            MOUSE_POS = pygame.mouse.get_pos()
+        # buttons on the game over screen
+            RE_PLAY_BUTTON = Button(image=None, pos=(950, 360),text_input="PLAY AGAIN", font=self.get_font(50), base_color="white", hovering_color="Green")
+            QUIT = Button(image=None, pos=(950, 460), text_input="QUIT", font=self.get_font(50), base_color="white", hovering_color="Green")
+           
+        #    update with hover
+            for button in [RE_PLAY_BUTTON,QUIT]:
+                button.changeColor(MOUSE_POS)
+                button.update(self.SCREEN)
+            
+        # for the events
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if RE_PLAY_BUTTON.checkForInput(MOUSE_POS):
+                        self.game_over_song.stop()
+                        mode='menu'
+                        self.main_menu()
+                    if QUIT.checkForInput(MOUSE_POS):
+                        pygame.quit()
+                        sys.exit()
+
+
+            pygame.display.update()
+
     def main_menu(self):
         while True:
             self.SCREEN.blit(self.BG, (0, 0))
@@ -91,8 +135,10 @@ class Menu:
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        self.menu_sound.stop()
                         return('play')
                     if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
+                        mode='option'
                         self.options()
                     if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                         pygame.quit()

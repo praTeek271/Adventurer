@@ -6,7 +6,6 @@ from menu import Menu
 import time
 
 class Game:
-	# BG = pygame.image.load("project/graphics/tilemap/main_menu.png")
 	def __init__(self) : 
 		  
 		# general setu p
@@ -16,7 +15,7 @@ class Game:
 		pygame_icon = icon_location
 		pygame.display.set_icon(pygame_icon)
 		self.clock = pygame.time.Clock()
-		self.main_sound=pygame.mixer.Sound(os.path.join(Base_Dir,'audio/main.ogg'))
+		self.main_sound=pygame.mixer.Sound(os.path.join(Base_Dir,'audio/forest-ambience.wav'))
 		self.main_sound.play(loops=-1)
 		self.level=Level()
 		self.menu=Menu()
@@ -29,7 +28,7 @@ class Game:
 	
 	def play(self):
 		mode='play'
-		while True:
+		while mode=='play':
 			pygame.display.set_caption('Play Mode')
 
 			for event in pygame.event.get():

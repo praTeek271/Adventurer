@@ -81,7 +81,7 @@ class Enemy(Entity):
 
 
         self.monster_DEATH_sound=pygame.mixer.Sound(os.path.join(Base_Dir,'audio/death.wav'))
-        self.monster__HIT_sound=pygame.mixer.Sound(os.path.join(Base_Dir,'audio/hit.wav'))
+        self.monster__HIT_sound=pygame.mixer.Sound(os.path.join(Base_Dir,'audio/sword-cutting-and-killing.wav'))
         self.monster__HIT_sound.set_volume(0.2)
         self.monster_DEATH_sound.set_volume(0.2)
         self.attack_sound=pygame.mixer.Sound(monster_info['attack_sound'])
@@ -151,6 +151,7 @@ class Enemy(Entity):
         elif self.status=='move':
 
             self.direction=self.get_player_distance_and_direction(player)[1]
+            
 
         else:
 
@@ -196,6 +197,7 @@ class Enemy(Entity):
             if attack_type == 'Weapon':
 
                 self.health-=player.get_full_weapon_damage()
+                
             
 
             elif attack_type=='Magic':

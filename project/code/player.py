@@ -3,6 +3,7 @@ from settings import *
 import os
 from support import import_folder
 from entity import Entity
+from menu import Menu
 
 class Player(Entity):
 	def __init__(self,pos,groups,obstacle_sprites,create_attack,destroy_attack,create_magic,destroy_magic):
@@ -64,8 +65,8 @@ class Player(Entity):
 		self.invicibility_dur=500
 		
 		# import sound
-		self.weapon_attack_sound=pygame.mixer.Sound(os.path.join(Base_Dir,'audio/sword.wav'))
-		self.weapon_attack_sound.set_volume(0.35)
+		self.weapon_attack_sound=pygame.mixer.Sound(os.path.join(Base_Dir,'audio/quick-saber-cut.mp3'))
+		self.weapon_attack_sound.set_volume(0.55)
 		
 
 	def animation(self):
@@ -85,6 +86,7 @@ class Player(Entity):
 			self.image.set_alpha(alpha)
 		else:
 			self.image.set_alpha(255)
+			self.hurt_sound=pygame.mixer.Sound(os.path.join(Base_Dir,'audio/sword-cutting-and-killing.wav'))
 
 
 	def input(self): 
@@ -99,7 +101,11 @@ class Player(Entity):
 				self.status='down'
 			else:
 				self.direction.y = 0
-
+			if (keys[pygame.K_ESCAPE]):
+				self.menu=Menu()
+				mode='menu'
+				self.menu.main_menu()
+				
 			if (keys[pygame.K_RIGHT] or keys[pygame.K_d]):
 				self.direction.x = 1
 				self.status='right'
@@ -211,6 +217,7 @@ class Player(Entity):
 		else:
 			if ('attack' in self.status):
 				self.status=self.status.replace( '_attack','_idle')
+				self.attack_sound=pygame.mixer.Sound(os.path.join(Base_Dir,'audio/sword-cutting-and-killing.wav'))
 	
 	# energy recovery
 	def energy_recovery(self):
