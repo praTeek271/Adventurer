@@ -15,5 +15,7 @@ This is a 2-D version type game, in this game their are in total of 4 enemies. P
 ## Images from the Game Screen
 
    <img src="https://github.com/praTeek271/Adventurer/blob/5e5475c9619aa6e4de7acc1c8908a018961b4518/project/graphics/test/adven_proj.gif" width=1012px>
+   
 ---
+
   <img src="https://github.com/praTeek271/Adventurer/blob/master/project/graphics/test/Screenshot%202022-10-15%20182040.png">
